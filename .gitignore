@@ -39,5 +39,7 @@
 
 # debug information files
 *.dwo
+
+#vscode用
 .vscode/
 .DS_Store

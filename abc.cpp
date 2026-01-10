@@ -348,8 +348,12 @@ template<class T> vector<pair<T, ll>> RLE(vector<T> vec) {
     }
     return rle;
 }
+
+//　自分の周りの８方向
 // const vint di = {+1, +1, +1, +0, +0, -1, -1, -1};
 // const vint dj = {-1, +0, +1, +1, -1, -1, +0, +1};
+
+// 自分の周りの4方向
 const vint di = {-1, +0, +1, +0};
 const vint dj = {+0, +1, +0, -1};
 // string input_text_name = "input.txt";
