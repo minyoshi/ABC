@@ -43,3 +43,7 @@
 #vscode用
 .vscode/
 .DS_Store
+abc.dSYM/
+Info.plist
+*.out.yml
+abc
