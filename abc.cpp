@@ -16,8 +16,8 @@ using namespace atcoder;
 #define all(a) (a).begin(), (a).end()
 #define dame std::cout << -1 << std::endl
 #define popcount(x) __builtin_popcountll(x) 
-using mint = atcoder::modint1000000007;
-// using mint = atcoder::modint998244353;
+// using mint = atcoder::modint1000000007;
+using mint = atcoder::modint998244353;
 using ll        = long long; 
 using ull       = unsigned long long;
 using ld        = long double;
@@ -50,7 +50,7 @@ using vvtll     = vector<vtll>;
 using vmint     = vector<mint>;
 using vvmint    = vector<vmint>;
 const ll INF    = 1LL << 60;
-const int inf   = INT32_MAX;
+const int inf   = 2e9;
 struct Edge {
     int to; ll w;
     Edge(int to, ll w) : to(to), w(w) {}
@@ -72,12 +72,20 @@ template<class T> vector<T> operator-(vector<T> lhs, vector<T> rhs) {
     } 
     return res;
 }
+template<class T, class U> pair<T, U> operator+(const pair<T, U> lhs, const pair<T, U> rhs) {
+    return make_pair(lhs.first + rhs.first, lhs.second + rhs.second);
+}
 template<class T> pair<T, T> operator-(pair<T, T> &lhs, const pair<T, T> &rhs) {
     return make_pair(lhs.first - rhs.first, lhs.second - rhs.second);
 }
 template<class T> pair<T, T> operator-=(pair<T, T> &lhs, const pair<T, T> &rhs) {
     lhs.first -= rhs.first;
     lhs.second -= rhs.second;
+    return lhs;
+}
+template<class T, class U> pair<T, U> operator+=(pair<T, U> &lhs, const pair<T, U> &rhs) {
+    lhs.first += rhs.first;
+    lhs.second += rhs.second;
     return lhs;
 }
 template<class T> ostream& operator<<(ostream& os, const set<T> &st) {
@@ -120,6 +128,12 @@ template<class T1, class T2> void print(map<T1, T2> &mp) {
         cout << "{" << x1 << " : " << x2 << "}" << endl;
     }
 } 
+template<class T> void print(vector<vector<T>> &vec) {
+    rep(i, vec.size()) {
+        for (auto x : vec[i]) cout << x << " ";
+        cout << endl;
+    }
+}
 template<typename T, typename... Args> void print(const T& first, const Args&... args) {
     cout << first;
     ((cout << " " << args), ...);
