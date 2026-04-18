@@ -254,6 +254,20 @@ struct LCA {
     }
 };
 
+struct Timer {
+    std::chrono::steady_clock::time_point start;
+    const char* name;
+
+    Timer(const char* name) : start(std::chrono::steady_clock::now()), name(name) {}
+
+    ~Timer() {
+        auto end = std::chrono::steady_clock::now();
+        auto dur = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        std::cerr << name << ": " << dur << " ms\n";
+    }
+};
+#define TIME_BLOCK(name) Timer timer_##__LINE__(name)
+
 // return x^k(O(k))
 inline ll pw(ll x, ll k) {
     ll res = 1;
