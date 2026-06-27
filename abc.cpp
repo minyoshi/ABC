@@ -62,6 +62,13 @@ template<class T> vector<T> operator-=(vector<T> &lhs, const vector<T> &rhs) {
     }
     return lhs;
 }
+template<class T> vector<T> operator+=(vector<T> &lhs, const vector<T> &rhs) {
+    assert(lhs.size() == rhs.size());
+    rep(i, lhs.size()) {    
+        lhs[i] += rhs[i];
+    }
+    return lhs;
+}
 template<class T> vector<T> operator-(vector<T> lhs, vector<T> rhs) {
 
     assert(lhs.size() == rhs.size());
