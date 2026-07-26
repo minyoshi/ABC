@@ -10,6 +10,7 @@ using namespace atcoder;
 #define YES std::cout << "Yes" << std::endl
 #define NO std::cout << "No" << std::endl
 #define rep(i,n) for (ll i = 0; i < (ll) (n); i++)
+#define rrep(i, n) for (ll i = (n)-1; i >= 0; i--)
 #define repab(i,a,b) for (ll i=(a); i<(ll) (b); i++)
 #define ANS(ans) print(ans ? "Yes" : "No");
 #define sort stable_sort
