@@ -384,6 +384,12 @@ template<class T> vector<pair<T, ll>> RLE(vector<T> vec) {
     }
     return rle;
 }
+// [l, r]の範囲で偶数の個数を求める
+ll cnt_even(ll l, ll r) {
+    // l ≤ r
+    if (l > r) return 0;
+    return (r+1 - l)/2 + (l % 2 == 0 and r % 2 == 0);
+}
 
 //　自分の周りの８方向
 // const vint di = {+1, +1, +1, +0, +0, -1, -1, -1};
