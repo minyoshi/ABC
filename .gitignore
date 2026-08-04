@@ -47,3 +47,6 @@ abc.dSYM/
 Info.plist
 *.out.yml
 abc
+
+#テスト用
+*.txt
