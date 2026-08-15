@@ -56,87 +56,101 @@ struct Edge {
     int to; ll w;
     Edge(int to, ll w) : to(to), w(w) {}
 };
-template<class T> vector<T> operator-=(vector<T> &lhs, const vector<T> &rhs) {
-    assert(lhs.size() == rhs.size());
-    rep(i, lhs.size()) {    
-        lhs[i] -= rhs[i];
+namespace operators
+{
+    
+    template<class T> vector<T> operator-=(vector<T> &lhs, const vector<T> &rhs) {
+        assert(lhs.size() == rhs.size());
+        rep(i, lhs.size()) {    
+            lhs[i] -= rhs[i];
+        }
+        return lhs;
     }
-    return lhs;
-}
-template<class T> vector<T> operator+=(vector<T> &lhs, const vector<T> &rhs) {
-    assert(lhs.size() == rhs.size());
-    rep(i, lhs.size()) {    
-        lhs[i] += rhs[i];
+    template<class T> vector<T> operator+=(vector<T> &lhs, const vector<T> &rhs) {
+        assert(lhs.size() == rhs.size());
+        rep(i, lhs.size()) {    
+            lhs[i] += rhs[i];
+        }
+        return lhs;
     }
-    return lhs;
-}
-template<class T> vector<T> operator+(vector<T> lhs, vector<T> rhs) {
-    assert(lhs.size() == rhs.size());
-    int size = lhs.size();
-    vector<T> res(size);
-    rep(i, size) {
-        res[i] = lhs[i] + rhs[i];
-    } 
-    return res;
-}
-template<class T> vector<T> operator-(vector<T> lhs, vector<T> rhs) {
+    template<class T> vector<T> operator+(vector<T> lhs, vector<T> rhs) {
+        assert(lhs.size() == rhs.size());
+        int size = lhs.size();
+        vector<T> res(size);
+        rep(i, size) {
+            res[i] = lhs[i] + rhs[i];
+        } 
+        return res;
+    }
+    template<class T> vector<T> operator-(vector<T> lhs, vector<T> rhs) {
+        
+        assert(lhs.size() == rhs.size());
+        int size = lhs.size();
+        vector<T> res(size);
+        rep(i, size) {
+            res[i] = lhs[i] - rhs[i];
+        } 
+        return res;
+    }
+    template<class T, class U> pair<T, U> operator+(const pair<T, U> lhs, const pair<T, U> rhs) {
+        return make_pair(lhs.first + rhs.first, lhs.second + rhs.second);
+    }
+    template<class T> pair<T, T> operator-(pair<T, T> &lhs, const pair<T, T> &rhs) {
+        return make_pair(lhs.first - rhs.first, lhs.second - rhs.second);
+    }
+    template<class T> pair<T, T> operator-=(pair<T, T> &lhs, const pair<T, T> &rhs) {
+        lhs.first -= rhs.first;
+        lhs.second -= rhs.second;
+        return lhs;
+    }
+    template<class T, class U> pair<T, U> operator+=(pair<T, U> &lhs, const pair<T, U> &rhs) {
+        lhs.first += rhs.first;
+        lhs.second += rhs.second;
+        return lhs;
+    }
+    template<class T> ostream& operator<<(ostream& os, const set<T> &st) {
+        string res = "(";
+        for (auto x : st) res += to_string(x) + ", ";
+        if (st.size()) {
+            rep(_, 2) res.pop_back();
+        }
+        res += ")";
+        os << res;
+        return os;
+    }
+    template<class T1, class T2> inline ostream& operator<<(ostream& os, const pair<T1, T2> &p) {
+        os << '(' << p.first << ", " << p.second << ')';
+        return os;
+    }
+    template<class T1, class T2, class T3> inline ostream& operator<<(ostream& os, const tuple<T1, T2, T3> &t) {
+        os << '(' << std::get<0>(t) << ", " << std::get<1>(t) << ", " << std::get<2>(t) << ')';
+        return os;
+    }
+    inline ostream& operator<<(ostream& os, const modint998244353 &m) {
+        os << m.val();
+        return os;
+    }
+    inline ostream& operator<<(ostream& os, const modint1000000007 &m) {
+        os << m.val();
+        return os;
+    }
+    template<class T> inline ostream& operator<<(ostream& os, const vector<T> &vec) {
+        os << "{";
+        rep(i, vec.size()) os << vec[i] << vst({", ", ""})[i == vec.size()-1];
+        os << "}";
+        return os; 
+    }
+    template<class T1, class T2> inline istream& operator>>(istream& is, pair<T1, T2>& p) {
+        is >> p.first >> p.second;
+        return is;
+    }
+    template<class T> inline istream& operator>>(istream& is, vector<T>& p) {
+        rep(i, p.size()) is >> p[i];
+        return is;
+    }
+} // namespace operators
+using namespace operators;
 
-    assert(lhs.size() == rhs.size());
-    int size = lhs.size();
-    vector<T> res(size);
-    rep(i, size) {
-        res[i] = lhs[i] - rhs[i];
-    } 
-    return res;
-}
-template<class T, class U> pair<T, U> operator+(const pair<T, U> lhs, const pair<T, U> rhs) {
-    return make_pair(lhs.first + rhs.first, lhs.second + rhs.second);
-}
-template<class T> pair<T, T> operator-(pair<T, T> &lhs, const pair<T, T> &rhs) {
-    return make_pair(lhs.first - rhs.first, lhs.second - rhs.second);
-}
-template<class T> pair<T, T> operator-=(pair<T, T> &lhs, const pair<T, T> &rhs) {
-    lhs.first -= rhs.first;
-    lhs.second -= rhs.second;
-    return lhs;
-}
-template<class T, class U> pair<T, U> operator+=(pair<T, U> &lhs, const pair<T, U> &rhs) {
-    lhs.first += rhs.first;
-    lhs.second += rhs.second;
-    return lhs;
-}
-template<class T> ostream& operator<<(ostream& os, const set<T> &st) {
-    string res = "(";
-    for (auto x : st) res += to_string(x) + ", ";
-    if (st.size()) {
-        rep(_, 2) res.pop_back();
-    }
-    res += ")";
-    os << res;
-    return os;
-}
-template<class T1, class T2> inline ostream& operator<<(ostream& os, const pair<T1, T2> &p) {
-    os << '(' << p.first << ", " << p.second << ')';
-    return os;
-}
-template<class T1, class T2, class T3> inline ostream& operator<<(ostream& os, const tuple<T1, T2, T3> &t) {
-    os << '(' << std::get<0>(t) << ", " << std::get<1>(t) << ", " << std::get<2>(t) << ')';
-    return os;
-}
-inline ostream& operator<<(ostream& os, const modint998244353 &m) {
-    os << m.val();
-    return os;
-}
-inline ostream& operator<<(ostream& os, const modint1000000007 &m) {
-    os << m.val();
-    return os;
-}
-template<class T> inline ostream& operator<<(ostream& os, const vector<T> &vec) {
-    os << "{";
-    rep(i, vec.size()) os << vec[i] << vst({", ", ""})[i == vec.size()-1];
-    os << "}";
-    return os; 
-}
 void print() {
     cout << endl;
 }
@@ -155,14 +169,6 @@ template<typename T, typename... Args> void print(const T& first, const Args&...
     cout << first;
     ((cout << " " << args), ...);
     cout << endl;
-}
-template<class T1, class T2> inline istream& operator>>(istream& is, pair<T1, T2>& p) {
-    is >> p.first >> p.second;
-    return is;
-}
-template<class T> inline istream& operator>>(istream& is, vector<T>& p) {
-    rep(i, p.size()) is >> p[i];
-    return is;
 }
 template<class T> inline bool chmax(T &a, T b) {
     if (a < b) {
