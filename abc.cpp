@@ -9,9 +9,9 @@ using namespace boost::multiprecision;
 using namespace atcoder;
 #define YES std::cout << "Yes" << std::endl
 #define NO std::cout << "No" << std::endl
-#define rep(i,n) for (ll i = 0; i < (ll) (n); i++)
+#define rep(i,n) for (ll i = 0; i < (ll) (n); ++i)
 #define rrep(i, n) for (ll i = (n)-1; i >= 0; i--)
-#define repab(i,a,b) for (ll i=(a); i<(ll) (b); i++)
+#define repab(i,a,b) for (ll i=(a); i<(ll) (b); ++i)
 #define ANS(ans) print(ans ? "Yes" : "No");
 #define sort stable_sort
 #define all(a) (a).begin(), (a).end()
@@ -161,7 +161,7 @@ namespace comb {
         fac[0] = fac[1] = 1;
         finv[0] = finv[1] = 1;
         inv[1] = 1;
-        for (int i = 2; i < MAX; i++){
+        for (int i = 2; i < MAX; ++i){
             fac[i] = fac[i - 1] * i;
             inv[i] = MOD - inv[MOD%i] * (MOD / i);
             finv[i] = finv[i - 1] * inv[i];
@@ -327,7 +327,7 @@ inline ll pw(ll x, ll k) {
 
 // 素数判定(O√N)
 template<class T> inline bool is_prime(T n) {
-    for (T i = 2; i*i <= n; i++) {
+    for (T i = 2; i*i <= n; ++i) {
         if (n % i == 0) return false;
     } return true;
 }
@@ -345,10 +345,10 @@ inline ll euclideanDistance(const pll a, const pll b) {
 // nを素因数分解(first = 素数, second = 指数)
 vector<pll> prime_factorize(ll n) {
     vpll res;
-    for (ll a = 2; a*a <= n; a++) {
+    for (ll a = 2; a*a <= n; ++a) {
         if (n % a) continue;
         int ex = 0;
-        while(n % a == 0) ex++, n /= a;
+        while(n % a == 0) ++ex, n /= a;
         res.push_back({a, ex});
     }
     if (n != 1) res.push_back({n, 1});
@@ -391,7 +391,7 @@ inline bool outOfRange(ll i, ll j, ll hight, ll width) {
 // エラトステネスの篩
 void Eratosthenes(vector<int> &vec){
     vec[0] = vec[1] = 0;
-    for(int i=2; i*i < (int) vec.size(); i++){
+    for(int i=2; i*i < (int) vec.size(); ++i){
         if(vec[i]==0) continue;
         
         int x = i+i;
@@ -408,7 +408,7 @@ vector<pair<char, ll>> RLE(string &s) {
     rep(i, s.size()) {
         if (rle.empty()) rle.emplace_back(s[i], 1);
         else {
-            if (rle.back().first == s[i]) rle.back().second++;
+            if (rle.back().first == s[i]) ++rle.back().second;
             else rle.emplace_back(s[i], 1);
         }
     }
@@ -420,7 +420,7 @@ template<class T> vector<pair<T, ll>> RLE(vector<T> vec) {
     rep(i, vec.size()) {
         if (rle.empty()) rle.emplace_back(vec[i], 1);
         else {
-            if (rle.back().first == vec[i]) rle.back().second++;
+            if (rle.back().first == vec[i]) ++rle.back().second;
             else rle.emplace_back(vec[i], 1);
         }
     }
