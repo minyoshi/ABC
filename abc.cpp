@@ -399,6 +399,7 @@ inline bool outOfRange(ll i, ll j, ll hight, ll width) {
 
 // エラトステネスの篩
 void Eratosthenes(vector<int> &vec){
+    vec.assign(vec.size(), 1);
     vec[0] = vec[1] = 0;
     for(int i=2; i*i < (int) vec.size(); ++i){
         if(vec[i]==0) continue;
