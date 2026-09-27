@@ -11,4 +11,4 @@ clean: ## プロジェクト配下の .out / .dSYM を削除
 	@find . -type d -name '*.dSYM' -prune -exec rm -rf {} \;
 
 test: ##テスト実施
-	./test/test.sh
+	@./test/test.sh
