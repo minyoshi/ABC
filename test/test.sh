@@ -1,23 +1,25 @@
-#!/bin/zsh
+#!/bin/bash
 
-g++ -std=c++20 gen.cpp -o gen.out
-g++ -std=c++20 naive.cpp -o naive.out
-g++ -std=c++20 ../abc.cpp -o main.out
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+g++ -std=c++20 "$PROJECT_ROOT/test/gen.cpp" -o "$PROJECT_ROOT/test/gen.out"
+g++ -std=c++20 "$PROJECT_ROOT/test/naive.cpp" -o "$PROJECT_ROOT/test/naive.out"
+g++ -std=c++20 "$PROJECT_ROOT/abc.cpp" -o "$PROJECT_ROOT/test/main.out"
 
 while true
 do
-    ./gen.out > input.txt
+    "$PROJECT_ROOT/test/gen.out" > "$PROJECT_ROOT/test/input.txt"
 
-    ./naive.out < input.txt > out1.txt
-    ./main.out  < input.txt > out2.txt
+    "$PROJECT_ROOT/test/naive.out" < "$PROJECT_ROOT/test/input.txt" > "$PROJECT_ROOT/test/out1.txt"
+    "$PROJECT_ROOT/test/main.out"  < "$PROJECT_ROOT/test/input.txt" > "$PROJECT_ROOT/test/out2.txt"
 
-    if ! diff -q out1.txt out2.txt > /dev/null; then
+    if ! diff -q "$PROJECT_ROOT/test/out1.txt" "$PROJECT_ROOT/test/out2.txt" > /dev/null; then
         echo "WA!"
-        cat input.txt
+        cat "$PROJECT_ROOT/test/input.txt"
         echo "--- naive ---"
-        cat out1.txt
+        cat "$PROJECT_ROOT/test/out1.txt"
         echo "--- main ---"
-        cat out2.txt
+        cat "$PROJECT_ROOT/test/out2.txt"
         break
     fi
 done

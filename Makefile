@@ -1,4 +1,4 @@
-.PHONY: help clean
+.PHONY: help clean test
 
 help: ## ヘルプを表示
 	@printf "\033[1;34m使い方:\033[0m\n"
@@ -8,3 +8,6 @@ help: ## ヘルプを表示
 
 clean: ## プロジェクト配下の .out ファイルを削除
 	find . -type f -name '*.out' -delete
+
+test: ##テスト実施
+	./test/test.sh
