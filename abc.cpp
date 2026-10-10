@@ -201,11 +201,29 @@ template<class T> void print(vector<vector<T>> &vec) {
         cout << endl;
     }
 }
+template<typename... Args>
+void print_impl(const char* names, const Args&... args) {
+    string s = names;
+    stringstream ss(s);
+    vector<string> ns;
+    string name;
+
+    while (getline(ss, name, ',')) {
+        name.erase(0, name.find_first_not_of(" "));
+        ns.push_back(name);
+    }
+
+    size_t i = 0;
+    ((cout << (i ? ", " : "")
+           << ns[i++] << " = " << args), ...);
+    cout << endl;
+}
 template<typename T, typename... Args> void print(const T& first, const Args&... args) {
     cout << first;
     ((cout << " " << args), ...);
     cout << endl;
 }
+#define PRINT(...) print_impl(#__VA_ARGS__, __VA_ARGS__)
 template<class T> inline bool chmax(T &a, T b) {
     if (a < b) {
         a = b;
