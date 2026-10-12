@@ -122,8 +122,13 @@ namespace operators
         os << '(' << p.first << ", " << p.second << ')';
         return os;
     }
-    template<class T1, class T2, class T3> inline ostream& operator<<(ostream& os, const tuple<T1, T2, T3> &t) {
-        os << '(' << std::get<0>(t) << ", " << std::get<1>(t) << ", " << std::get<2>(t) << ')';
+    template<class... T> inline ostream& operator<<(ostream& os, const tuple<T...> t) {
+        os << "(";
+        string sep = "";
+        apply([&](const auto... arg) {
+            ((os << sep << arg, sep = ", "), ...);
+        }, t);
+        os << ")";
         return os;
     }
     inline ostream& operator<<(ostream& os, const modint998244353 &m) {
@@ -139,6 +144,16 @@ namespace operators
         os << "}";
         return os;
     }
+    template<class T> inline ostream& operator<<(ostream& os, const multiset<T> &mp) {
+        os << "{";
+        for (auto it = mp.begin(); it != mp.end(); ++it) {
+            if (it != mp.begin()) os << ", ";
+            os << *it;
+        }
+        os << "}";
+        return os;
+    }
+
     inline ostream& operator<<(ostream& os, const modint1000000007 &m) {
         os << m.val();
         return os;
@@ -266,6 +281,7 @@ struct Centroid
             size.assign(n, 0); 
             seen.assign(n, false);
         };
+        // 重心を返す
         vint get() {
             centroids.clear();
             size.assign(n, false);
