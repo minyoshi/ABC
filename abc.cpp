@@ -187,43 +187,110 @@ namespace comb {
     }
 } // namespace comb
 
-void print() {
-    cout << endl;
-}
-template<class T1, class T2> void print(map<T1, T2> &mp) {
-    for (auto [x1, x2] : mp) {
-        cout << "{" << x1 << " : " << x2 << "}" << endl;
+namespace {
+    template<class T> inline void vv_cout(vector<vector<T>> &a) {
+        rep(i, a.size()) {
+            for (T n : a[i]) cout << n << " ";
+            cout << endl;
+        }
     }
-} 
-template<class T> void print(vector<vector<T>> &vec) {
-    rep(i, vec.size()) {
-        for (auto x : vec[i]) cout << x << " ";
+    template<class T> inline void v_cout(vector<T> &a) {
+        for (T x : a) cout << x << " ";
+        cout << endl;
+    }
+    inline void cout_grid(vector<string> &grid) {
+        rep(i, grid.size()) {
+            rep(j, grid[i].size()) cout << grid[i][j];
+            cout << endl;
+        }
+    }
+    template<class T> inline void st_cout(set<T> &st) {
+        for (T x : st) cout << x << " ";
         cout << endl;
     }
 }
-template<typename... Args>
-void print_impl(const char* names, const Args&... args) {
-    string s = names;
-    stringstream ss(s);
-    vector<string> ns;
-    string name;
 
-    while (getline(ss, name, ',')) {
-        name.erase(0, name.find_first_not_of(" "));
-        ns.push_back(name);
+namespace {
+    void print() {
+        cout << endl;
     }
+    template<class T1, class T2> void print(map<T1, T2> &mp) {
+        for (auto [x1, x2] : mp) {
+            cout << "{" << x1 << " : " << x2 << "}" << endl;
+        }
+    } 
+    template<class T> void print(vector<vector<T>> &vec) {
+        rep(i, vec.size()) {
+            for (auto x : vec[i]) cout << x << " ";
+            cout << endl;
+        }
+    }
+    template<typename... Args>
+    void print_impl(const char* names, const Args&... args) {
+        string s = names;
+        stringstream ss(s);
+        vector<string> ns;
+        string name;
+    
+        while (getline(ss, name, ',')) {
+            name.erase(0, name.find_first_not_of(" "));
+            ns.push_back(name);
+        }
+    
+        size_t i = 0;
+        ((cout << (i ? ", " : "")
+               << ns[i++] << " = " << args), ...);
+        cout << endl;
+    }
+    template<typename T, typename... Args> void print(const T& first, const Args&... args) {
+        cout << first;
+        ((cout << " " << args), ...);
+        cout << endl;
+    }
+    #ifdef DEBUG
+    #define PRINT(...) print_impl(#__VA_ARGS__, __VA_ARGS__)
+    #endif
+}
 
-    size_t i = 0;
-    ((cout << (i ? ", " : "")
-           << ns[i++] << " = " << args), ...);
-    cout << endl;
-}
-template<typename T, typename... Args> void print(const T& first, const Args&... args) {
-    cout << first;
-    ((cout << " " << args), ...);
-    cout << endl;
-}
-#define PRINT(...) print_impl(#__VA_ARGS__, __VA_ARGS__)
+/// @brief 重心を求めるライブラリ。木であることが前提条件
+struct Centroid
+{
+    int n;
+    vvint g;
+    vint size;
+    private: 
+        vector<int> centroids;
+        vb seen;
+    public:
+        Centroid(int n, vvint g) : n(n), g(g) { 
+            size.assign(n, 0); 
+            seen.assign(n, false);
+        };
+        vint get() {
+            centroids.clear();
+            size.assign(n, false);
+            seen.assign(n, false);
+            dfs(0);
+            return centroids;
+        }    
+    private: void dfs(int v) {
+        assert(0 <= v and v < n);
+        seen[v] = true;
+        size[v] = 1;
+        bool is_centroid = true;
+        for (int nv : g[v]) {
+            assert(0 <= nv and nv < n);
+            if (seen[nv]) continue;
+            dfs(nv);
+            if (size[nv] > n/2) is_centroid = false;
+            size[v] += size[nv];
+        }
+        if (n - size[v] > n/2) is_centroid = false;
+        if (is_centroid) centroids.push_back(v);
+    }
+    
+};
+
 template<class T> inline bool chmax(T &a, T b) {
     if (a < b) {
         a = b;
@@ -237,20 +304,6 @@ template<class T> inline bool chmin(T &a, T b) {
         return true;
     }
     return false;
-}
-template<class T> inline void vv_cout(vector<vector<T>> &a) {
-    rep(i, a.size()) {
-        for (T n : a[i]) cout << n << " ";
-        cout << endl;
-    }
-}
-template<class T> inline void v_cout(vector<T> &a) {
-    for (T x : a) cout << x << " ";
-    cout << endl;
-}
-template<class T> inline void st_cout(set<T> &st) {
-    for (T x : st) cout << x << " ";
-    cout << endl;
 }
 template<class T> inline T floor(T x, T m) {
     T r = (x % m + m) % m;
@@ -359,12 +412,6 @@ template<class T> inline bool is_prime(T n) {
     } return true;
 }
 
-inline void cout_grid(vector<string> &grid) {
-    rep(i, grid.size()) {
-        rep(j, grid[i].size()) cout << grid[i][j];
-        cout << endl;
-    }
-}
 // ユークリッド距離を計算
 inline ll euclideanDistance(const pll a, const pll b) {
     return pw(a.first - b.first, 2) + pw(a.second - b.second, 2);
