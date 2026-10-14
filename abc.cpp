@@ -1,3 +1,4 @@
+// https://github.com/minyoshi/ABC/blob/main/abc.cpp
 #ifndef ONLINE_JUDGE
 #define _GLIBCXX_DEBUG//[]で配列外参照をするとエラーにしてくれる。上下のやつがないとTLEになるので注意
 #endif
@@ -359,6 +360,8 @@ template<class T> inline vector<T> to_m_digit(T n, T m) {
     return res;
 }
 
+// Source: https://github.com/drken1215/algorithm/blob/master/Tree/lca_by_doubling.cpp
+// Article: https://drken1215.hatenablog.com/entry/2021/06/19/175900
 // LCA を求めるライブラリ(2頂点間のパスの長さを求められる。最短の共通の祖先がわかる)
 struct LCA {
     using Graph = vector<vector<int>>;
