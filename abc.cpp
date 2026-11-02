@@ -485,6 +485,9 @@ inline bool outOfRange(ll i, ll j, ll hight, ll width) {
 // 最小公倍数L = a/gcd(a, b)*b
 
 // エラトステネスの篩
+// O(NloglogN)　（素数の逆数和は、x 以下で loglogx 程度に増える(メルテンスの定理)）
+// 補足：調和関数(1 + 1/2 + 1/3 + ... + 1/n)の評価（continueがなくi < nでループしたとき）
+// N + N/2 + ... N/N < O(NlogN)（区分求積法（積分使うやつ）で求められる）
 void Eratosthenes(vector<int> &vec){
     vec.assign(vec.size(), 1);
     vec[0] = vec[1] = 0;
