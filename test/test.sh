@@ -20,9 +20,9 @@ SPINNER=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
 # Progress bar
 BAR_WIDTH=20
 
-g++ -std=c++20 "$TEST_DIR/gen.cpp" -o "$TMP_DIR/gen.out"
-g++ -std=c++20 "$TEST_DIR/naive.cpp" -o "$TMP_DIR/naive.out"
-g++ -std=c++20 "$PROJECT_ROOT/abc.cpp" -o "$TMP_DIR/main.out"
+g++ -std=c++20 -O3 "$TEST_DIR/gen.cpp" -o "$TMP_DIR/gen.out"
+g++ -std=c++20 -O3 "$TEST_DIR/naive.cpp" -o "$TMP_DIR/naive.out"
+g++ -std=c++20 -O3 "$PROJECT_ROOT/abc.cpp" -o "$TMP_DIR/main.out"
 
 count=0
 spinner_index=0

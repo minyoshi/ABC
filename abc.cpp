@@ -109,6 +109,12 @@ namespace operators
         lhs.second += rhs.second;
         return lhs;
     }
+    template<class T> inline ostream& operator<<(ostream& os, const vector<T> &vec) {
+        os << "{";
+        rep(i, vec.size()) os << vec[i] << vst({", ", ""})[i == vec.size()-1];
+        os << "}";
+        return os; 
+    }
     template<class T> ostream& operator<<(ostream& os, const set<T> &st) {
         string res = "(";
         for (auto x : st) res += to_string(x) + ", ";
@@ -158,12 +164,6 @@ namespace operators
     inline ostream& operator<<(ostream& os, const modint1000000007 &m) {
         os << m.val();
         return os;
-    }
-    template<class T> inline ostream& operator<<(ostream& os, const vector<T> &vec) {
-        os << "{";
-        rep(i, vec.size()) os << vec[i] << vst({", ", ""})[i == vec.size()-1];
-        os << "}";
-        return os; 
     }
     template<class T1, class T2> inline istream& operator>>(istream& is, pair<T1, T2>& p) {
         is >> p.first >> p.second;
